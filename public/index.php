@@ -75,6 +75,26 @@ header('X-XSS-Protection: 1; mode=block');
 // }
 
 // =============================================================================
+// SECURITY MIDDLEWARE
+// =============================================================================
+
+use App\Middleware\SecurityMiddleware;
+
+// Criar objetos Request e Response
+$request = Request::capture();
+$response = new Response();
+
+// Executar SecurityMiddleware - Verifica blacklist, rate limiting, CSRF, XSS
+$security = new SecurityMiddleware($request, $response);
+$blockResponse = $security->handle();
+
+// Se SecurityMiddleware bloqueou a requisição, para tudo e retorna erro
+if ($blockResponse) {
+    $blockResponse->send();
+    exit;
+}
+
+// =============================================================================
 // CARREGAR ROTAS
 // =============================================================================
 
@@ -197,7 +217,7 @@ if (APP_DEBUG) {
 // =============================================================================
 
 // Se nenhuma rota corresponder, mostrar 404
-if (!Router::hasRoute(Request::capture()->method(), Request::capture()->uri())) {
+if (!Router::hasRoute($request->method(), $request->uri())) {
     http_response_code(404);
 
     echo '<h1>404 - Page Not Found</h1>';
