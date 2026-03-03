@@ -14,7 +14,13 @@ class FileHelper {
      * Obter path do storage
      */
     public static function storage($path = '') {
-        return storage_path() . ($path ? '/' . ltrim($path, '/') : '');
+        // __DIR__ aponta para a pasta 'src', então voltamos um nível para chegar na raiz
+        $basePath = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'storage';
+
+        // Limpa barras extras e concatena o caminho
+        $path = $path ? DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR) : '';
+
+        return $basePath . $path;
     }
 
     /**
@@ -119,5 +125,5 @@ class FileHelper {
 
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
-    
+
 }
