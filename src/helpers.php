@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Funções Globais - Helpers
- * Estas funções estão disponíveis globalmente em toda a aplicação
- * Como as helpers functions do Laravel!
- */
-
 use App\Helpers\FileHelper;
 use App\Helpers\LogHelper;
 use App\Helpers\CacheHelper;
@@ -24,7 +18,8 @@ if (!function_exists('storage_path')) {
     /**
      * Obter path do storage
      */
-    function storage_path($path = '') {
+    function storage_path($path = '')
+    {
         return FileHelper::storage($path);
     }
 }
@@ -33,7 +28,8 @@ if (!function_exists('public_path')) {
     /**
      * Obter path do public
      */
-    function public_path($path = '') {
+    function public_path($path = '')
+    {
         return FileHelper::public($path);
     }
 }
@@ -42,7 +38,8 @@ if (!function_exists('base_path')) {
     /**
      * Obter path base da aplicação
      */
-    function base_path($path = '') {
+    function base_path($path = '')
+    {
         return FileHelper::path($path);
     }
 }
@@ -51,7 +48,8 @@ if (!function_exists('app_path')) {
     /**
      * Obter path do src
      */
-    function app_path($path = '') {
+    function app_path($path = '')
+    {
         return FileHelper::path('src/' . $path);
     }
 }
@@ -60,7 +58,8 @@ if (!function_exists('config_path')) {
     /**
      * Obter path do config
      */
-    function config_path($path = '') {
+    function config_path($path = '')
+    {
         return FileHelper::path('config/' . $path);
     }
 }
@@ -69,7 +68,8 @@ if (!function_exists('resource_path')) {
     /**
      * Obter path do resources
      */
-    function resource_path($path = '') {
+    function resource_path($path = '')
+    {
         return FileHelper::path('resources/' . $path);
     }
 }
@@ -82,7 +82,8 @@ if (!function_exists('logger')) {
     /**
      * Log genérico
      */
-    function logger($level, $message, $context = []) {
+    function logger($level, $message, $context = [])
+    {
         LogHelper::log($level, $message, $context);
     }
 }
@@ -91,7 +92,8 @@ if (!function_exists('info')) {
     /**
      * Log de informação
      */
-    function info($message, $context = []) {
+    function info($message, $context = [])
+    {
         LogHelper::info($message, $context);
     }
 }
@@ -100,7 +102,8 @@ if (!function_exists('debug')) {
     /**
      * Log de debug
      */
-    function debug($message, $context = []) {
+    function debug($message, $context = [])
+    {
         LogHelper::debug($message, $context);
     }
 }
@@ -109,7 +112,8 @@ if (!function_exists('error')) {
     /**
      * Log de erro
      */
-    function error($message, $context = []) {
+    function error($message, $context = [])
+    {
         LogHelper::error($message, $context);
     }
 }
@@ -118,7 +122,8 @@ if (!function_exists('warning')) {
     /**
      * Log de aviso
      */
-    function warning($message, $context = []) {
+    function warning($message, $context = [])
+    {
         LogHelper::warning($message, $context);
     }
 }
@@ -127,7 +132,8 @@ if (!function_exists('log_sql')) {
     /**
      * Log de SQL
      */
-    function log_sql($query, $bindings = [], $time = null) {
+    function log_sql($query, $bindings = [], $time = null)
+    {
         LogHelper::sql($query, $bindings, $time);
     }
 }
@@ -140,35 +146,41 @@ if (!function_exists('cache')) {
     /**
      * Cache helper
      */
-    function cache($key = null, $value = null, $ttl = null) {
+    function cache($key = null, $value = null, $ttl = null)
+    {
         if ($key === null) {
             return new class {
-                public function remember($key, $callback, $ttl = 3600) {
+                public function remember($key, $callback, $ttl = 3600)
+                {
                     return CacheHelper::remember($key, $callback, $ttl);
                 }
-                
-                public function forget($key) {
+
+                public function forget($key)
+                {
                     return CacheHelper::forget($key);
                 }
-                
-                public function flush() {
+
+                public function flush()
+                {
                     return CacheHelper::flush();
                 }
-                
-                public function get($key, $default = null) {
+
+                public function get($key, $default = null)
+                {
                     return CacheHelper::get($key, $default);
                 }
-                
-                public function put($key, $value, $ttl = 3600) {
+
+                public function put($key, $value, $ttl = 3600)
+                {
                     return CacheHelper::put($key, $value, $ttl);
                 }
             };
         }
-        
+
         if ($value === null) {
             return CacheHelper::get($key);
         }
-        
+
         return CacheHelper::put($key, $value, $ttl);
     }
 }
@@ -177,7 +189,8 @@ if (!function_exists('remember')) {
     /**
      * Cache remember
      */
-    function remember($key, $callback, $ttl = 3600) {
+    function remember($key, $callback, $ttl = 3600)
+    {
         return CacheHelper::remember($key, $callback, $ttl);
     }
 }
@@ -190,7 +203,8 @@ if (!function_exists('template_path')) {
     /**
      * Obter path do template
      */
-    function template_path($path = '') {
+    function template_path($path = '')
+    {
         return FileHelper::path("templates/{$path}");
     }
 }
@@ -199,7 +213,8 @@ if (!function_exists('layout_path')) {
     /**
      * Obter path do layout
      */
-    function layout_path($path = '') {
+    function layout_path($path = '')
+    {
         return FileHelper::path("templates/layout/{$path}");
     }
 }
@@ -213,7 +228,8 @@ if (!function_exists('config')) {
      * Obter valor da configuração
      * Uso: config('app.name'), config('database.host'), etc.
      */
-    function config($key, $default = null) {
+    function config($key, $default = null)
+    {
         return ConfigHelper::get($key, $default);
     }
 }
@@ -222,7 +238,8 @@ if (!function_exists('app_url')) {
     /**
      * Obter URL base da aplicação
      */
-    function app_url($path = '') {
+    function app_url($path = '')
+    {
         return ConfigHelper::url($path);
     }
 }
@@ -231,7 +248,8 @@ if (!function_exists('is_debug')) {
     /**
      * Verificar se está em debug
      */
-    function is_debug() {
+    function is_debug()
+    {
         return ConfigHelper::isDebug();
     }
 }
@@ -240,7 +258,8 @@ if (!function_exists('is_local')) {
     /**
      * Verificar se está em ambiente local
      */
-    function is_local() {
+    function is_local()
+    {
         return ConfigHelper::isLocal();
     }
 }
@@ -253,7 +272,8 @@ if (!function_exists('validate')) {
     /**
      * Validar dados
      */
-    function validate($data, $rules) {
+    function validate($data, $rules)
+    {
         return ValidationHelper::validate($data, $rules);
     }
 }
@@ -262,7 +282,8 @@ if (!function_exists('sanitize')) {
     /**
      * Sanitizar string
      */
-    function sanitize($string) {
+    function sanitize($string)
+    {
         return ValidationHelper::sanitize($string);
     }
 }
@@ -271,7 +292,8 @@ if (!function_exists('is_email')) {
     /**
      * Validar email
      */
-    function is_email($email) {
+    function is_email($email)
+    {
         return ValidationHelper::email($email);
     }
 }
@@ -280,7 +302,8 @@ if (!function_exists('is_url')) {
     /**
      * Validar URL
      */
-    function is_url($url) {
+    function is_url($url)
+    {
         return ValidationHelper::url($url);
     }
 }
@@ -289,7 +312,8 @@ if (!function_exists('slug')) {
     /**
      * Gerar slug
      */
-    function slug($string) {
+    function slug($string)
+    {
         return ValidationHelper::slug($string);
     }
 }
@@ -298,7 +322,8 @@ if (!function_exists('uuid')) {
     /**
      * Gerar UUID
      */
-    function uuid() {
+    function uuid()
+    {
         return ValidationHelper::uuid();
     }
 }
@@ -307,7 +332,8 @@ if (!function_exists('random_token')) {
     /**
      * Gerar token aleatório
      */
-    function random_token($length = 32) {
+    function random_token($length = 32)
+    {
         return ValidationHelper::randomToken($length);
     }
 }
@@ -320,37 +346,46 @@ if (!function_exists('auth')) {
     /**
      * Auth helper
      */
-    function auth() {
+    function auth()
+    {
         return new class {
-            public function check() {
+            public function check()
+            {
                 return AuthHelper::check();
             }
-            
-            public function user() {
+
+            public function user()
+            {
                 return AuthHelper::user();
             }
-            
-            public function id() {
+
+            public function id()
+            {
                 return AuthHelper::id();
             }
-            
-            public function guest() {
+
+            public function guest()
+            {
                 return !AuthHelper::check();
             }
-            
-            public function isAdmin() {
+
+            public function isAdmin()
+            {
                 return AuthHelper::isAdmin();
             }
-            
-            public function login($user, $remember = false) {
+
+            public function login($user, $remember = false)
+            {
                 return AuthHelper::login($user, $remember);
             }
-            
-            public function logout() {
+
+            public function logout()
+            {
                 return AuthHelper::logout();
             }
-            
-            public function can($permission) {
+
+            public function can($permission)
+            {
                 return AuthHelper::can($permission);
             }
         };
@@ -361,7 +396,8 @@ if (!function_exists('user')) {
     /**
      * Obter usuário autenticado
      */
-    function user() {
+    function user()
+    {
         return AuthHelper::user();
     }
 }
@@ -370,7 +406,8 @@ if (!function_exists('is_logged_in')) {
     /**
      * Verificar se está logado
      */
-    function is_logged_in() {
+    function is_logged_in()
+    {
         return AuthHelper::check();
     }
 }
@@ -379,7 +416,8 @@ if (!function_exists('is_admin')) {
     /**
      * Verificar se é admin
      */
-    function is_admin() {
+    function is_admin()
+    {
         return AuthHelper::isAdmin();
     }
 }
@@ -392,7 +430,8 @@ if (!function_exists('trans')) {
     /**
      * Tradução (alias para LangHelper::get)
      */
-    function trans($key, $replace = [], $locale = null) {
+    function trans($key, $replace = [], $locale = null)
+    {
         return LangHelper::get($key, $replace, $locale);
     }
 }
@@ -401,7 +440,8 @@ if (!function_exists('__')) {
     /**
      * Tradução curta (alias para trans)
      */
-    function __($key, $replace = []) {
+    function __($key, $replace = [])
+    {
         return LangHelper::get($key, $replace);
     }
 }
@@ -410,7 +450,8 @@ if (!function_exists('trans_choice')) {
     /**
      * Tradução plural
      */
-    function trans_choice($key, $number, $replace = []) {
+    function trans_choice($key, $number, $replace = [])
+    {
         return LangHelper::choice($key, $number, $replace);
     }
 }
@@ -419,7 +460,8 @@ if (!function_exists('locale')) {
     /**
      * Obter locale atual
      */
-    function locale() {
+    function locale()
+    {
         return LangHelper::getLocale();
     }
 }
@@ -428,7 +470,8 @@ if (!function_exists('set_locale')) {
     /**
      * Definir locale
      */
-    function set_locale($locale) {
+    function set_locale($locale)
+    {
         return LangHelper::setLocale($locale);
     }
 }
@@ -441,7 +484,8 @@ if (!function_exists('format_number')) {
     /**
      * Formatar número
      */
-    function format_number($number, $decimals = 0) {
+    function format_number($number, $decimals = 0)
+    {
         return TemplateHelper::formatNumber($number, $decimals);
     }
 }
@@ -450,7 +494,8 @@ if (!function_exists('format_currency')) {
     /**
      * Formatar moeda
      */
-    function format_currency($amount, $currency = 'USD') {
+    function format_currency($amount, $currency = 'USD')
+    {
         return TemplateHelper::formatCurrency($amount, $currency);
     }
 }
@@ -459,7 +504,8 @@ if (!function_exists('format_date')) {
     /**
      * Formatar data
      */
-    function format_date($date, $format = 'medium') {
+    function format_date($date, $format = 'medium')
+    {
         return TemplateHelper::formatDate($date, $format);
     }
 }
@@ -468,7 +514,8 @@ if (!function_exists('time_ago')) {
     /**
      * Tempo relativo
      */
-    function time_ago($date) {
+    function time_ago($date)
+    {
         return TemplateHelper::timeAgo($date);
     }
 }
@@ -477,7 +524,8 @@ if (!function_exists('language_selector')) {
     /**
      * Gerar seletor de idiomas
      */
-    function language_selector() {
+    function language_selector()
+    {
         return LangHelper::languageSelector();
     }
 }
@@ -490,7 +538,8 @@ if (!function_exists('dd')) {
     /**
      * Die and Dump
      */
-    function dd(...$vars) {
+    function dd(...$vars)
+    {
         echo '<pre>';
         foreach ($vars as $var) {
             var_dump($var);
@@ -505,7 +554,8 @@ if (!function_exists('dump')) {
     /**
      * Dump variables
      */
-    function dump(...$vars) {
+    function dump(...$vars)
+    {
         echo '<pre>';
         foreach ($vars as $var) {
             var_dump($var);
@@ -519,11 +569,12 @@ if (!function_exists('old')) {
     /**
      * Obter valor antigo do formulário
      */
-    function old($key, $default = '') {
+    function old($key, $default = '')
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+
         return $_SESSION['old_input'][$key] ?? $default;
     }
 }
@@ -532,7 +583,8 @@ if (!function_exists('back')) {
     /**
      * Redirecionar para página anterior
      */
-    function back() {
+    function back()
+    {
         $referer = $_SERVER['HTTP_REFERER'] ?? '/';
         header("Location: {$referer}");
         exit;
@@ -543,7 +595,8 @@ if (!function_exists('redirect')) {
     /**
      * Redirecionar para URL
      */
-    function redirect($url, $status = 302) {
+    function redirect($url, $status = 302)
+    {
         header("Location: {$url}", true, $status);
         exit;
     }
@@ -553,7 +606,8 @@ if (!function_exists('asset')) {
     /**
      * Obter URL de asset
      */
-    function asset($path) {
+    function asset($path)
+    {
         return app_url('assets/' . $path);
     }
 }
@@ -562,7 +616,8 @@ if (!function_exists('url')) {
     /**
      * Obter URL
      */
-    function url($path = '') {
+    function url($path = '')
+    {
         return app_url($path);
     }
 }
@@ -571,7 +626,8 @@ if (!function_exists('route')) {
     /**
      * Obter URL de rota nomeada
      */
-    function route($name, $params = []) {
+    function route($name, $params = [])
+    {
         // TODO: Implementar sistema de rotas nomeadas
         return url($name);
     }
@@ -581,15 +637,16 @@ if (!function_exists('csrf_token')) {
     /**
      * Gerar token CSRF
      */
-    function csrf_token() {
+    function csrf_token()
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = random_token(32);
         }
-        
+
         return $_SESSION['csrf_token'];
     }
 }
@@ -598,7 +655,8 @@ if (!function_exists('csrf_field')) {
     /**
      * Gerar campo CSRF hidden
      */
-    function csrf_field() {
+    function csrf_field()
+    {
         $token = csrf_token();
         return "<input type='hidden' name='csrf_token' value='{$token}'>";
     }
@@ -608,7 +666,8 @@ if (!function_exists('method_field')) {
     /**
      * Gerar campo method para forms
      */
-    function method_field($method) {
+    function method_field($method)
+    {
         return "<input type='hidden' name='_method' value='{$method}'>";
     }
 }
@@ -617,20 +676,21 @@ if (!function_exists('flash')) {
     /**
      * Obter mensagem flash
      */
-    function flash($type = null) {
+    function flash($type = null)
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+
         if ($type === null) {
             $messages = $_SESSION['flash'] ?? [];
             unset($_SESSION['flash']);
             return $messages;
         }
-        
+
         $message = $_SESSION['flash'][$type] ?? null;
         unset($_SESSION['flash'][$type]);
-        
+
         return $message;
     }
 }
@@ -639,20 +699,21 @@ if (!function_exists('session')) {
     /**
      * Obter/definir valor da sessão
      */
-    function session($key = null, $default = null) {
+    function session($key = null, $default = null)
+    {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        
+
         if ($key === null) {
             return $_SESSION;
         }
-        
+
         if (func_num_args() === 2) {
             $_SESSION[$key] = $default;
             return $default;
         }
-        
+
         return $_SESSION[$key] ?? $default;
     }
 }
@@ -668,7 +729,8 @@ if (!function_exists('config_file')) {
      * Obter arquivo de configuração completo
      * Uso: config_file('app'), config_file('database'), etc.
      */
-    function config_file($file, $default = null) {
+    function config_file($file, $default = null)
+    {
         return ConfigHelper::getFile($file, $default);
     }
 }
@@ -678,7 +740,8 @@ if (!function_exists('config_has')) {
      * Verificar se configuração existe
      * Uso: config_has('app.name'), config_has('database.host'), etc.
      */
-    function config_has($key) {
+    function config_has($key)
+    {
         return ConfigHelper::has($key);
     }
 }
@@ -688,7 +751,8 @@ if (!function_exists('config_set')) {
      * Definir valor da configuração
      * Uso: config_set('app.name', 'Novo Nome')
      */
-    function config_set($key, $value) {
+    function config_set($key, $value)
+    {
         return ConfigHelper::set($key, $value);
     }
 }
@@ -698,7 +762,8 @@ if (!function_exists('config_save')) {
      * Salvar configuração em arquivo
      * Uso: config_save('app'), config_save('database', $config)
      */
-    function config_save($file, $config = null) {
+    function config_save($file, $config = null)
+    {
         return ConfigHelper::save($file, $config);
     }
 }
@@ -708,7 +773,8 @@ if (!function_exists('config_reload')) {
      * Recarregar arquivo de configuração
      * Uso: config_reload('app'), config_reload('database')
      */
-    function config_reload($file) {
+    function config_reload($file)
+    {
         return ConfigHelper::reload($file);
     }
 }
@@ -718,7 +784,8 @@ if (!function_exists('config_clear')) {
      * Limpar cache de configurações
      * Uso: config_clear()
      */
-    function config_clear() {
+    function config_clear()
+    {
         return ConfigHelper::clear();
     }
 }
@@ -728,7 +795,8 @@ if (!function_exists('config_all')) {
      * Obter todas as configurações carregadas
      * Uso: config_all()
      */
-    function config_all() {
+    function config_all()
+    {
         return ConfigHelper::all();
     }
 }
@@ -738,7 +806,8 @@ if (!function_exists('config_loaded')) {
      * Obter arquivos de configuração carregados
      * Uso: config_loaded()
      */
-    function config_loaded() {
+    function config_loaded()
+    {
         return ConfigHelper::loaded();
     }
 }
@@ -748,7 +817,8 @@ if (!function_exists('app_name')) {
     /**
      * Obter nome da aplicação
      */
-    function app_name() {
+    function app_name()
+    {
         return ConfigHelper::name();
     }
 }
@@ -759,7 +829,8 @@ if (!function_exists('app_version')) {
     /**
      * Obter versão da aplicação
      */
-    function app_version() {
+    function app_version()
+    {
         return ConfigHelper::version();
     }
 }
@@ -768,7 +839,8 @@ if (!function_exists('app_env')) {
     /**
      * Obter ambiente da aplicação
      */
-    function app_env() {
+    function app_env()
+    {
         return config('app.env', 'local');
     }
 }
@@ -777,7 +849,8 @@ if (!function_exists('app_debug')) {
     /**
      * Verificar se debug está ativado
      */
-    function app_debug() {
+    function app_debug()
+    {
         return ConfigHelper::isDebug();
     }
 }
@@ -786,7 +859,8 @@ if (!function_exists('app_local')) {
     /**
      * Verificar se está em ambiente local
      */
-    function app_local() {
+    function app_local()
+    {
         return ConfigHelper::isLocal();
     }
 }
@@ -795,7 +869,8 @@ if (!function_exists('app_production')) {
     /**
      * Verificar se está em ambiente de produção
      */
-    function app_production() {
+    function app_production()
+    {
         return ConfigHelper::isProduction();
     }
 }
@@ -804,7 +879,8 @@ if (!function_exists('db_config')) {
     /**
      * Obter configuração do database
      */
-    function db_config($key = null, $default = null) {
+    function db_config($key = null, $default = null)
+    {
         return ConfigHelper::database($key, $default);
     }
 }
@@ -813,7 +889,8 @@ if (!function_exists('cache_config')) {
     /**
      * Obter configuração do cache
      */
-    function cache_config($key = null, $default = null) {
+    function cache_config($key = null, $default = null)
+    {
         return ConfigHelper::cache($key, $default);
     }
 }
@@ -822,7 +899,8 @@ if (!function_exists('email_config')) {
     /**
      * Obter configuração do email
      */
-    function email_config($key = null, $default = null) {
+    function email_config($key = null, $default = null)
+    {
         return ConfigHelper::email($key, $default);
     }
 }
@@ -831,7 +909,8 @@ if (!function_exists('security_config')) {
     /**
      * Obter configuração de segurança
      */
-    function security_config($key = null, $default = null) {
+    function security_config($key = null, $default = null)
+    {
         return ConfigHelper::security($key, $default);
     }
 }
@@ -840,7 +919,8 @@ if (!function_exists('game_config')) {
     /**
      * Obter configuração do jogo
      */
-    function game_config($key = null, $default = null) {
+    function game_config($key = null, $default = null)
+    {
         return ConfigHelper::game($key, $default);
     }
 }
@@ -849,7 +929,8 @@ if (!function_exists('session_config')) {
     /**
      * Obter configuração de sessão
      */
-    function session_config($key = null, $default = null) {
+    function session_config($key = null, $default = null)
+    {
         return ConfigHelper::session($key, $default);
     }
 }
@@ -862,7 +943,8 @@ if (!function_exists('email')) {
     /**
      * Send email
      */
-    function email($to, $subject, $body, $options = []) {
+    function email($to, $subject, $body, $options = [])
+    {
         return EmailHelper::getInstance()->send($to, $subject, $body, $options);
     }
 }
@@ -871,7 +953,8 @@ if (!function_exists('send_welcome_email')) {
     /**
      * Send welcome email
      */
-    function send_welcome_email($user, $password = null) {
+    function send_welcome_email($user, $password = null)
+    {
         return EmailHelper::getInstance()->sendWelcome($user, $password);
     }
 }
@@ -880,7 +963,8 @@ if (!function_exists('send_password_reset_email')) {
     /**
      * Send password reset email
      */
-    function send_password_reset_email($user, $token) {
+    function send_password_reset_email($user, $token)
+    {
         return EmailHelper::getInstance()->sendPasswordReset($user, $token);
     }
 }
@@ -889,7 +973,8 @@ if (!function_exists('send_email_verification')) {
     /**
      * Send email verification
      */
-    function send_email_verification($user, $token) {
+    function send_email_verification($user, $token)
+    {
         return EmailHelper::getInstance()->sendEmailVerification($user, $token);
     }
 }
@@ -898,7 +983,8 @@ if (!function_exists('send_notification_email')) {
     /**
      * Send notification email
      */
-    function send_notification_email($user, $title, $message, $data = []) {
+    function send_notification_email($user, $title, $message, $data = [])
+    {
         return EmailHelper::getInstance()->sendNotification($user, $title, $message, $data);
     }
 }
@@ -907,7 +993,8 @@ if (!function_exists('send_battle_report_email')) {
     /**
      * Send battle report email
      */
-    function send_battle_report_email($user, $battle) {
+    function send_battle_report_email($user, $battle)
+    {
         return EmailHelper::getInstance()->sendBattleReport($user, $battle);
     }
 }
@@ -916,7 +1003,8 @@ if (!function_exists('send_alliance_invitation_email')) {
     /**
      * Send alliance invitation email
      */
-    function send_alliance_invitation_email($user, $alliance, $inviter) {
+    function send_alliance_invitation_email($user, $alliance, $inviter)
+    {
         return EmailHelper::getInstance()->sendAllianceInvitation($user, $alliance, $inviter);
     }
 }
@@ -925,7 +1013,8 @@ if (!function_exists('test_email')) {
     /**
      * Test email configuration
      */
-    function test_email($to = null) {
+    function test_email($to = null)
+    {
         return EmailHelper::getInstance()->test($to);
     }
 }
@@ -936,7 +1025,33 @@ if (!function_exists('email_is_configured')) {
     /**
      * Check if email is configured
      */
-    function email_is_configured() {
+    function email_is_configured()
+    {
         return EmailHelper::getInstance()->isConfigured();
     }
+}
+
+/**
+ * Simula a função env() do Laravel para PHP Puro
+ */
+function env($key, $default = null)
+{
+    // Tenta pegar de variáveis de ambiente do sistema
+    $value = getenv($key);
+
+    if ($value === false) {
+        return $default;
+    }
+
+    // Trata valores booleanos que vêm como string
+    switch (strtolower($value)) {
+        case 'true':
+            return true;
+        case 'false':
+            return false;
+        case 'null':
+            return null;
+    }
+
+    return $value;
 }
