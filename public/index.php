@@ -35,12 +35,13 @@ define('APP_NAME', env('APP_NAME', 'Puro'));
 define('APP_VERSION', env('APP_VERSION', '1.0.0'));
 define('APP_URL', env('APP_URL', 'http://localhost/puro'));
 define('APP_ENV', env('APP_ENV', 'local'));
-define('APP_DEBUG', env('APP_DEBUG', false));
+define('APP_DEBUG', env('APP_DEBUG', true));
 
 // =============================================================================
 // MIDDLEWARE GLOBAL
 // =============================================================================
 
+use App\Helpers\FileHelper;
 use App\Http\Request;
 use App\Http\Response;
 use App\Http\Router;
