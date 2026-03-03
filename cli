@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use App\Core\Cli;
+
+// Register default commands
+Cli::registerDefaultCommands();
+
+// Run the CLI
+Cli::run($argv);
